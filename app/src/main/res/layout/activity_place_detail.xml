@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlaceDetail">
+
+    <Button
+        android:id="@+id/visitedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        android:text="Mark as visisted"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ratingButton"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/ratingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="56dp"
+        android:text="Add rating"
+        app:layout_constraintBottom_toTopOf="@+id/favoriteButton"
+        app:layout_constraintEnd_toStartOf="@+id/visitedButton" />
+
+    <TextView
+        android:id="@+id/detailsPlaceAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/detailsPlaceNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsPlaceNameTextView" />
+
+    <TextView
+        android:id="@+id/detailsPlaceNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="101dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detailsPlaceDescTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="21dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/detailsPlaceAddressTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsPlaceAddressTextView" />
+
+    <TextView
+        android:id="@+id/detailsPlaceRatingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/detailsPlaceDescTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsPlaceDescTextView" />
+
+    <Button
+        android:id="@+id/remindMeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        android:text="Remind Me"
+        app:layout_constraintBaseline_toBaselineOf="@+id/favoriteButton"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/favoriteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="74dp"
+        android:layout_marginBottom="198dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="609dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
