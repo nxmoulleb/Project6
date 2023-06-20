@@ -31,4 +31,7 @@ public interface PlaceDao {
 
     @Query("SELECT * from places where visited = 1")
     public List<Place> getAllVisitedPlaces();
+
+    @Query("SELECT * from places where remind = 1")
+    public List<Place> getAllRemindPlaces();
 }

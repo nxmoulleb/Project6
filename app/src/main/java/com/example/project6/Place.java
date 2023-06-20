@@ -17,6 +17,7 @@ public class Place {
     private String visitDate;
     private boolean visited;
     private boolean favorite;
+    private boolean remind;
 
     public Place(String name, String address, String desc, double rating) {
         this.name = name;
@@ -26,6 +27,7 @@ public class Place {
         visited = false;
         favorite = false;
         visitDate = "";
+        remind = false;
     }
 
     @NonNull
@@ -91,6 +93,14 @@ public class Place {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    public boolean isRemind() {
+        return remind;
+    }
+
+    public void setRemind(boolean remind) {
+        this.remind = remind;
     }
 
 }
