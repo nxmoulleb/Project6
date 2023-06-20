@@ -8,6 +8,9 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 import androidx.room.Room;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +34,8 @@ public class MyService extends Service {
                 while (true) {
                     try {
                         System.out.println("Doing things");
+                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                        String email = mAuth.getCurrentUser().getEmail();
                         database = Room.databaseBuilder(getApplicationContext(), PlaceDatabase.class, "placesDb")
                                 .allowMainThreadQueries()
                                 .build();
@@ -38,7 +43,8 @@ public class MyService extends Service {
 
                         Intent intent = new Intent();
                         intent.setAction("com.example.project6");
-                        for(Place p : placeDao.getAllRemindPlaces()) {
+
+                        for(Place p : placeDao.getAllRemindPlaces(email)) {
                             intent.putExtra("NAME", p.getName());
                             intent.putExtra("ADDRESS", p.getAddress());
                             intent.putExtra("DESC", p.getDesc());

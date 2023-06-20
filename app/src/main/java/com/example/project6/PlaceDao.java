@@ -23,15 +23,18 @@ public interface PlaceDao {
     @Query("SELECT * from places")
     public List<Place> getAllPlaces();
 
-    @Query("SELECT * from places where name = :name")
-    public List<Place> getPlaceByName(String name);
+    @Query("SELECT * from places where email = :email")
+    public List<Place> getAllPlacesWithEmail(String email);
 
-    @Query("SELECT * from places where favorite = 1")
-    public List<Place> getAllFavPlaces();
+    @Query("SELECT * from places where name = :name and email = :email")
+    public List<Place> getPlaceByName(String name, String email);
 
-    @Query("SELECT * from places where visited = 1")
-    public List<Place> getAllVisitedPlaces();
+    @Query("SELECT * from places where favorite = 1 and email = :email")
+    public List<Place> getAllFavPlaces(String email);
 
-    @Query("SELECT * from places where remind = 1")
-    public List<Place> getAllRemindPlaces();
+    @Query("SELECT * from places where visited = 1 and email = :email")
+    public List<Place> getAllVisitedPlaces(String email);
+
+    @Query("SELECT * from places where remind = 1 and email = :email")
+    public List<Place> getAllRemindPlaces(String email);
 }

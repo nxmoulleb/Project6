@@ -15,16 +15,18 @@
         android:text="Next Place to visit:"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textSize="16sp" />
+        android:textColor="#000000"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/placetoVisitText"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10sp"
-        android:text="Place to visit"
+        android:text="No reminders set!"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#000000"
         android:textSize="8sp" />
 
 </LinearLayout>

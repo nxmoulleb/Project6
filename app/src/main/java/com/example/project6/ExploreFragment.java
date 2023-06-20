@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 public class ExploreFragment extends Fragment implements RecyclerViewInterface {
@@ -21,6 +23,7 @@ public class ExploreFragment extends Fragment implements RecyclerViewInterface {
 
     PlaceDatabase database;
     PlaceDao placeDao;
+    private FirebaseAuth mAuth;
     ArrayList<Place> places;
 
 
@@ -33,6 +36,8 @@ public class ExploreFragment extends Fragment implements RecyclerViewInterface {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        String email = mAuth.getCurrentUser().getEmail();
 
         database = Room.databaseBuilder(getContext(), PlaceDatabase.class, "placesDb")
                 .allowMainThreadQueries()

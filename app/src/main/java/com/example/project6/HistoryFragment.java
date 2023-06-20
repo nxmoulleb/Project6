@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HistoryFragment#newInstance} factory method to
+ * Use the {@link HistoryFragment#} factory method to
  * create an instance of this fragment.
  */
 public class HistoryFragment extends Fragment implements RecyclerViewInterface {
@@ -35,6 +37,7 @@ public class HistoryFragment extends Fragment implements RecyclerViewInterface {
 
     RecyclerView recyclerView;
     MyAdapter myAdapter;
+    private FirebaseAuth mAuth;
 
     PlaceDatabase database;
     PlaceDao placeDao;
@@ -54,13 +57,15 @@ public class HistoryFragment extends Fragment implements RecyclerViewInterface {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        String email = mAuth.getCurrentUser().getEmail();
 
         database = Room.databaseBuilder(getContext(), PlaceDatabase.class, "placesDb")
                 .allowMainThreadQueries()
                 .build();
         placeDao = database.getPlaceDao();
 
-        places = (ArrayList<Place>) placeDao.getAllVisitedPlaces();
+        places = (ArrayList<Place>) placeDao.getAllVisitedPlaces(email);
 
         places = sortPlacesByLastVisited(places);
 
@@ -68,6 +73,7 @@ public class HistoryFragment extends Fragment implements RecyclerViewInterface {
         myAdapter = new MyAdapter(places, getContext(), this);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         return view;
     }
