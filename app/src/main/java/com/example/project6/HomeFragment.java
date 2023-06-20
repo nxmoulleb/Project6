@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -27,6 +29,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface{
 
     RecyclerView recyclerView;
     MyAdapter myAdapter;
+    private FirebaseAuth mAuth;
+    String email;
 
     PlaceDatabase database;
     PlaceDao placeDao;
@@ -46,13 +50,15 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        this.email = mAuth.getCurrentUser().getEmail();
 
         database = Room.databaseBuilder(getContext(), PlaceDatabase.class, "placesDb")
                 .allowMainThreadQueries()
                 .build();
         placeDao = database.getPlaceDao();
 
-        places = (ArrayList<Place>) placeDao.getAllPlaces();
+        places = (ArrayList<Place>) placeDao.getAllPlacesWithEmail(email);
 
         recyclerView = view.findViewById(R.id.homeRecyclerView);
         myAdapter = new MyAdapter(places, getContext(), this);
@@ -65,7 +71,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface{
             public void onClick(View v) {
                 EditText editText = view.findViewById(R.id.homeEditText);
                 String placeName = editText.getText().toString();
-                if(!placeName.isEmpty() && placeDao.getPlaceByName(placeName).isEmpty()) {
+                if(!placeName.isEmpty() && placeDao.getPlaceByName(placeName, email).isEmpty()) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 
                     LinearLayout lila1 = new LinearLayout(getContext());
@@ -93,7 +99,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface{
                             if(!value1.isEmpty() && !value2.isEmpty() && !value3.isEmpty()) {
                                 double val3 = Double.parseDouble(value3);
                                 if(val3 >= 0 && val3 <= 10) {
-                                    Place place = new Place(placeName, value1, value2, val3);
+                                    Place place = new Place(placeName, value1, value2, val3, email);
                                     placeDao.insert(place);
                                 }
                             } else {
@@ -129,7 +135,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface{
     }
 
     private void updateRecyclerView(){
-        places = (ArrayList<Place>) placeDao.getAllPlaces();
+        places = (ArrayList<Place>) placeDao.getAllPlacesWithEmail(email);
         myAdapter = new MyAdapter(places, getContext(), this);
         recyclerView.setAdapter(myAdapter);
     }

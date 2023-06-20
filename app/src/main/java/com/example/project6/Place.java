@@ -18,8 +18,9 @@ public class Place {
     private boolean visited;
     private boolean favorite;
     private boolean remind;
+    private String email;
 
-    public Place(String name, String address, String desc, double rating) {
+    public Place(String name, String address, String desc, double rating, String email) {
         this.name = name;
         this.address = address;
         this.desc = desc;
@@ -28,6 +29,7 @@ public class Place {
         favorite = false;
         visitDate = "";
         remind = false;
+        this.email = email;
     }
 
     @NonNull
@@ -101,6 +103,14 @@ public class Place {
 
     public void setRemind(boolean remind) {
         this.remind = remind;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

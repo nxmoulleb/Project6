@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 public class FavoritesFragment extends Fragment implements RecyclerViewInterface {
 
     RecyclerView recyclerView;
     MyAdapter myAdapter;
+    private FirebaseAuth mAuth;
 
     PlaceDatabase database;
     PlaceDao placeDao;
@@ -33,13 +36,15 @@ public class FavoritesFragment extends Fragment implements RecyclerViewInterface
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        String email = mAuth.getCurrentUser().getEmail();
 
         database = Room.databaseBuilder(getContext(), PlaceDatabase.class, "placesDb")
                 .allowMainThreadQueries()
                 .build();
         placeDao = database.getPlaceDao();
 
-        places = (ArrayList<Place>) placeDao.getAllFavPlaces();
+        places = (ArrayList<Place>) placeDao.getAllFavPlaces(email);
 
         recyclerView = view.findViewById(R.id.favoritesRecyclerView);
         myAdapter = new MyAdapter(places, getContext(), this);
