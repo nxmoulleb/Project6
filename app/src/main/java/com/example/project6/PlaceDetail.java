@@ -65,7 +65,6 @@ public class PlaceDetail extends AppCompatActivity {
         });
 
         Button visited = findViewById(R.id.visitedButton);
-
         visited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,11 +79,20 @@ public class PlaceDetail extends AppCompatActivity {
         });
 
         Button done = findViewById(R.id.backButton);
-
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        Button remind = findViewById(R.id.remindMeButton);
+        remind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                place.setRemind(true);
+                placeDao.update(place);
+                //System.out.println("WEEEE");
             }
         });
     }

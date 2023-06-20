@@ -88,10 +88,17 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface{
                         public void onClick(DialogInterface dialog, int whichButton) {
                             String value1 = address.getText().toString().trim();
                             String value2 = desc.getText().toString().trim();
-                            double value3 = Double.parseDouble(rating.getText().toString());
+                            String value3 = rating.getText().toString();
 
-                            Place place = new Place(placeName, value1, value2, value3);
-                            placeDao.insert(place);
+                            if(!value1.isEmpty() && !value2.isEmpty() && !value3.isEmpty()) {
+                                double val3 = Double.parseDouble(value3);
+                                if(val3 >= 0 && val3 <= 10) {
+                                    Place place = new Place(placeName, value1, value2, val3);
+                                    placeDao.insert(place);
+                                }
+                            } else {
+                                Toast.makeText(getContext(), "Make sure all inputs are valid", Toast.LENGTH_SHORT).show();
+                            }
 
                             updateRecyclerView();
                         }
