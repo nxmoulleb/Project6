@@ -39,7 +39,7 @@ public class ExploreFragment extends Fragment implements RecyclerViewInterface {
                 .build();
         placeDao = database.getPlaceDao();
 
-        places = (ArrayList<Place>) placeDao.getAllVisitedPlaces();
+        places = (ArrayList<Place>) placeDao.getAllPlaces();
 
         recyclerView = view.findViewById(R.id.exploreRecyclerView);
         myAdapter = new MyExplorerAdapter(places, getContext(), this);
